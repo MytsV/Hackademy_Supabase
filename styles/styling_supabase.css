@@ -1,0 +1,30 @@
+.sbui-input {
+    padding: 1.5em 3em !important;
+}
+
+.sbui-input:focus {
+    box-shadow: 0 0 0 1px var(--main-color-outline) !important;
+    border-color: var(--main-color-outline) !important;
+    --tw-ring-color: var(--main-color-outline) !important;
+}
+
+.sbui-typography-link {
+    color: var(--main-color) !important;
+}
+
+.sbui-btn {
+    padding: 1em 3em !important;
+}
+
+.sbui-btn-primary {
+    background-color: var(--main-color) !important;
+}
+
+.sbui-checkbox[type=checkbox]:checked {
+    --tw-bg-opacity: 1;
+    background-color: var(--main-color) !important;
+}
+
+.container {
+    padding: 3em;
+}

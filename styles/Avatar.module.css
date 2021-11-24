@@ -1,0 +1,23 @@
+.image {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    object-fit: cover;
+    margin-bottom: 1em;
+}
+
+.noImage {
+    height: var(--avatar-size);
+    width: var(--avatar-size);
+    background-size: contain;
+    background-image: url('https://i.stack.imgur.com/ATB3o.gif')
+}
+
+.container {
+    margin: 1em 0;
+}
+
+.inputFile {
+    visibility: hidden;
+    position: absolute;
+}
+
