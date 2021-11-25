@@ -7,6 +7,11 @@ concurrency:
 steps:
   - name: "Verify & build"
     image: node
+    environment:
+      NEXT_PUBLIC_SUPABASE_URL:
+        from_secret: NEXT_PUBLIC_SUPABASE_URL
+      NEXT_PUBLIC_SUPABASE_ANON_KEY:
+        from_secret: NEXT_PUBLIC_SUPABASE_ANON_KEY
     commands:
       - npm install
       - npm run build
