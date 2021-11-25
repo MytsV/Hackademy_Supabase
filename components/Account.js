@@ -56,7 +56,7 @@ export default function Account({ session }) {
         }
     }
 
-    async function updateProfile() {
+    async function updateProfile(form) {
         const userId = getUserId();
 
         await updateProfileDatabase({ supabase, userId, form });
@@ -69,9 +69,12 @@ export default function Account({ session }) {
     function onUpload(url) {
         setForm({
             ...form,
-            doc_url: url
+            'doc_url': url
         });
-        updateProfile();
+        updateProfile({
+            ...form,
+            'doc_url': url
+        });
     }
 
     return (
@@ -94,7 +97,7 @@ export default function Account({ session }) {
             <br />
             <Input id="city" name="city" type="text" label="City" value={getValue("city")} onChange={updateField} icon={<IconMap size={iconSize} stroke={strokeColor} />} />
             <br />
-            <Button disabled={loading} onClick={() => waitForApiAction(updateProfile)} block>{loading ? 'Loading...' : 'Update'}</Button>
+            <Button disabled={loading} onClick={() => waitForApiAction(() => updateProfile(form))} block>{loading ? 'Loading...' : 'Update'}</Button>
             <br />
             <Button onClick={() => supabase.auth.signOut()} block>Sign out</Button>
         </div>

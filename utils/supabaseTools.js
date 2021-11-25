@@ -48,9 +48,6 @@ export async function getImageUrl({supabase, path}) {
 }
 
 export async function uploadImage({supabase, filePath, file}) {
-
-    console.log('uploading');
-
     let { error: uploadError } = await supabase.storage
     .from(bucketName)
     .upload(filePath, file);

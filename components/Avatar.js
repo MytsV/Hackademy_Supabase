@@ -31,11 +31,9 @@ export default function Avatar({ url, onUpload }) {
             const fileName = `${Math.random()}.${fileExt}`
             const filePath = `${fileName}`
 
-            console.log(filePath);
-
             await uploadImage({filePath, supabase, file});
 
-            onUpload(filePath)
+            onUpload(filePath);
         } catch (error) {
             alert(error.message)
         } finally {
