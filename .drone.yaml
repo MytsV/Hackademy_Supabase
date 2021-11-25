@@ -1,0 +1,27 @@
+kind: pipeline
+name: "Test master push"
+
+concurrency:
+  limit: 2
+
+steps:
+  - name: "Verify & build"
+    image: node:10.11
+    commands:
+      - npm install
+      - npm run build
+  - name: "Build docker image"
+    image: plugins/docker
+    commands:
+      - docker build -t mytsv/supabase-hackademy-private:${DRONE_COMMIT_SHA:0:7} .
+      - docker push mytsv/supabase-hackademy-private:${DRONE_COMMIT_SHA:0:7}   
+
+trigger:
+  branch:
+  - main
+  # branch:
+  #   exclude:
+  #   - main
+  event:
+  - pull_request
+  - push
