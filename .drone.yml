@@ -17,6 +17,11 @@ steps:
       - npm run build
   - name: "Build docker image"
     image: plugins/docker
+    environment:
+      NEXT_PUBLIC_SUPABASE_URL:
+        from_secret: NEXT_PUBLIC_SUPABASE_URL
+      NEXT_PUBLIC_SUPABASE_ANON_KEY:
+        from_secret: NEXT_PUBLIC_SUPABASE_ANON_KEY
     settings:
       repo: mytsv/supabase-hackademy
       tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
