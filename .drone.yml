@@ -17,9 +17,13 @@ steps:
       - npm run build
   - name: "Build docker image"
     image: plugins/docker
-    commands:
-      - sudo docker build -t mytsv/supabase-hackademy-private:${DRONE_COMMIT_SHA:0:7} .
-      - sudo docker push mytsv/supabase-hackademy-private:${DRONE_COMMIT_SHA:0:7}   
+    settings:
+      repo: mytsv/supabase-hackademy
+      tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password 
 
 trigger:
   branch:
