@@ -1,12 +1,5 @@
 kind: pipeline
 name: "Test master push"
-type: docker
-
-environment:
-  NEXT_PUBLIC_SUPABASE_URL:
-    from_secret: NEXT_PUBLIC_SUPABASE_URL
-  NEXT_PUBLIC_SUPABASE_ANON_KEY:
-    from_secret: NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 concurrency:
   limit: 2
@@ -14,11 +7,21 @@ concurrency:
 steps:
   - name: "Verify & build"
     image: node
+    environment:
+      NEXT_PUBLIC_SUPABASE_URL:
+        from_secret: NEXT_PUBLIC_SUPABASE_URL
+      NEXT_PUBLIC_SUPABASE_ANON_KEY:
+        from_secret: NEXT_PUBLIC_SUPABASE_ANON_KEY
     commands:
       - npm install
       - npm run build
   - name: "Build docker image"
     image: plugins/docker
+    environment:
+      NEXT_PUBLIC_SUPABASE_URL:
+        from_secret: NEXT_PUBLIC_SUPABASE_URL
+      NEXT_PUBLIC_SUPABASE_ANON_KEY:
+        from_secret: NEXT_PUBLIC_SUPABASE_ANON_KEY
     settings:
       repo: mytsv/supabase-hackademy
       tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
@@ -29,10 +32,7 @@ steps:
 
 trigger:
   branch:
-  - main
-  # branch:
-  #   exclude:
-  #   - main
+    exclude:
+    - main
   event:
   - pull_request
-  - push
